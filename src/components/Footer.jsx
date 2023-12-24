@@ -3,7 +3,7 @@ import Logo from "../assets/img/logo.svg";
 
 function Footer() {
   return (
-    <div className="font-secondary mt-20 px-12 md:px-24 py-4 text-white">
+    <div className="font-secondary mt-auto px-12 md:px-24 py-4 text-white">
         <div className="flex justify-between items-center mb-4">
           <Link to="/" className="flex items-center gap-2">
             <img src={Logo} alt="logo" />
