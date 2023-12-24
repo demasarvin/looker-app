@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import logo from "../assets/img/logo.svg";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 const Navbar = () => {
@@ -10,7 +10,7 @@ const Navbar = () => {
   ];
   let [open, setOpen] = useState(false);
   return (
-    <nav className="bg-primary sticky flex h-16 w-full items-center justify-between px-8 py-4">
+    <nav className="bg-primary sticky top-0 flex h-16 w-full items-center justify-between px-8 py-4">
       <NavLink to="/" className="flex items-center gap-2 text-white">
         <img src={logo} alt="logo" />
         <p className="font-secondary text-xl font-bold">Looker</p>
