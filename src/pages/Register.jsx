@@ -1,29 +1,91 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import Footer from "../components/Footer";
-import Navbar from "../components/NavBar";
 import FloatingInput from "../components/FloatingInput";
+import { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function Register() {
+  const navigateTo = useNavigate();
+
+  const [input, setInput] = useState({
+    name: "",
+    imageUrl: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "https://dev-example.sanbercloud.com/api/register",
+        input,
+      );
+      let { token } = response.data;
+      Cookies.set("token", token);
+      navigateTo("/login");
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
   return (
-    <div className="flex min-h-screen flex-col bg-primary">
-      <Navbar />
-      <div className="flex items-center justify-center">
-        <div className="mx-auto my-8 w-80 md:w-96 rounded-md bg-white p-8">
-          <h1 className="mb-4 text-center font-primary text-2xl font-bold">
-            Create Your Account
-          </h1>
-          <FloatingInput name={"name"} type={"text"} placeholder={"name"}/>
-          <FloatingInput name={"imageUrl"} type={"text"} placeholder={"image URL"}/>
-          <FloatingInput name={"email"} type={"email"} placeholder={"email"}/>
-          <FloatingInput name={"password"} type={"password"} placeholder={"password"}/>
-          <div className="text-white w-full text-center mb-4">
-            <Button name={"Register"} />
-          </div>
-          <p className="font-primary text-sm">Already have an account? <Link to="/login" className="text-violet-500">Login here</Link></p>
+    <div className="flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto my-8 w-80 rounded-md bg-white p-8 md:w-96"
+      >
+        <h1 className="mb-4 text-center font-primary text-2xl font-bold">
+          Create Your Account
+        </h1>
+
+        <FloatingInput
+          value={input.name}
+          onChange={handleInput}
+          label="name"
+          type="text"
+          placeholder="name"
+        />
+        <FloatingInput
+          value={input.imageUrl}
+          onChange={handleInput}
+          label="imageUrl"
+          type="text"
+          placeholder="image URL"
+        />
+        <FloatingInput
+          value={input.email}
+          onChange={handleInput}
+          label="email"
+          type="email"
+          placeholder="email"
+        />
+        <FloatingInput
+          value={input.password}
+          onChange={handleInput}
+          label="password"
+          type="password"
+          placeholder="password"
+        />
+        <div className="mb-4 w-full text-center text-white">
+          <Button type="submit" name={"Register"} />
         </div>
-      </div>
-      <Footer />
+        <p className="font-primary text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="text-violet-500">
+            Login here
+          </Link>
+        </p>
+      </form>
     </div>
   );
 }

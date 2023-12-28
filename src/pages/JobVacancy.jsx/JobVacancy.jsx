@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import Footer from "../../components/Footer";
-import Navbar from "../../components/NavBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -20,9 +18,7 @@ function JobVacancy() {
       });
   }, []);
   return (
-    <div className="flex h-screen flex-col bg-primary">
-      <Navbar />
-      <div className="mx-6 mb-6 mt-4 grid gap-4 lg:grid-cols-4">
+    <div className="mx-6 mb-6 mt-4 grid gap-4 lg:grid-cols-4">
         {jobs.map((res) => (
           <Link
             key={res.id}
@@ -50,8 +46,6 @@ function JobVacancy() {
           </Link>
         ))}
       </div>
-      <Footer />
-    </div>
   );
 }
 
