@@ -22,7 +22,7 @@ function JobVacancy() {
         {jobs.map((res) => (
           <Link
             key={res.id}
-            to={`/jobs/${res.id}`}
+            to={`/job-vacancy/${res.id}`}
             className="rounded-lg bg-slate-800 p-4 text-white shadow-lg"
           >
             <div className="flex justify-between">

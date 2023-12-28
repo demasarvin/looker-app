@@ -15,10 +15,13 @@ import UpdateJob from "./pages/Dashboard/UpdateJob";
 import Profile from "./pages/Dashboard/Profile";
 import ChangePassword from "./pages/Dashboard/ChangePassword";
 import NotAccess from "./pages/NotAccess";
+import Detail from "./pages/JobVacancy.jsx/Detail";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"
@@ -33,6 +36,14 @@ function App() {
           element={
             <Layout>
               <JobVacancy />
+            </Layout>
+          }
+        />
+        <Route
+          path="/job-vacancy/:id"
+          element={
+            <Layout>
+              <Detail />
             </Layout>
           }
         />
