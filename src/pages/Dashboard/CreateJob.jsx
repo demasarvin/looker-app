@@ -63,7 +63,7 @@ const CreateJob = () => {
           label="title"
           type="text"
           placeholder="title"
-          required
+          isRequired={true}
         />
         <FloatingInput
           value={input.job_description}
@@ -71,7 +71,7 @@ const CreateJob = () => {
           label="job_description"
           type="text"
           placeholder="job description"
-          required
+          isRequired={true}
         />
         <FloatingInput
           value={input.job_qualification}
@@ -79,7 +79,7 @@ const CreateJob = () => {
           label="job_qualification"
           type="text"
           placeholder="job qualification"
-          required
+          isRequired={true}
         />
         <div className="mb-4 grid gap-x-4 md:grid-cols-2">
           <FloatingInput
@@ -88,7 +88,7 @@ const CreateJob = () => {
             label="job_type"
             type="text"
             placeholder="job type"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.job_tenure}
@@ -96,7 +96,7 @@ const CreateJob = () => {
             label="job_tenure"
             type="text"
             placeholder="job tenure"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.job_status}
@@ -104,7 +104,7 @@ const CreateJob = () => {
             label="job_status"
             type="number"
             placeholder="job status"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.company_name}
@@ -112,7 +112,7 @@ const CreateJob = () => {
             label="company_name"
             type="text"
             placeholder="company name"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.company_image_url}
@@ -120,7 +120,7 @@ const CreateJob = () => {
             label="company_image_url"
             type="text"
             placeholder="company image URL"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.company_city}
@@ -128,7 +128,7 @@ const CreateJob = () => {
             label="company_city"
             type="text"
             placeholder="company city"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.salary_min}
@@ -136,7 +136,7 @@ const CreateJob = () => {
             label="salary_min"
             type="number"
             placeholder="min salary"
-            required
+            isRequired={true}
           />
           <FloatingInput
             value={input.salary_max}
@@ -144,7 +144,7 @@ const CreateJob = () => {
             label="salary_max"
             type="number"
             placeholder="max salary"
-            required
+            isRequired={true}
           />
         </div>
         <div className="mb-4 w-full text-center text-white">
