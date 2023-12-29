@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-function FloatingInput({ label, type, placeholder, value, onChange,isRequired }) {
+function FloatingInput({ label, type, placeholder, value, onChange, isRequired }) {
   return (
     <div className="relative mb-4">
       <input
@@ -10,8 +10,8 @@ function FloatingInput({ label, type, placeholder, value, onChange,isRequired })
         placeholder=" "
         value={value}
         onChange={onChange}
-        min={type === 'number' ? 0 : undefined}
-        max={type === 'number' ? 1 : undefined}
+        min={label === 'job_status' ? 0 : undefined}
+        max={label === 'job_status' ? 1 : undefined}
         required={isRequired}
       />
       <label
