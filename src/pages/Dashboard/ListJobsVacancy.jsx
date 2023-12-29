@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 const ListJobsVacancy = () => {
   const tableHeaders = [
     "No",
@@ -24,6 +24,9 @@ const ListJobsVacancy = () => {
     currency: "IDR",
   });
   const [fetchStatus, setFetchStatus] = useState(true);
+  const [selectedJobId, setSelectedJobId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     axios
       .get("https://dev-example.sanbercloud.com/api/job-vacancy")
@@ -32,12 +35,17 @@ const ListJobsVacancy = () => {
       });
   }, [fetchStatus, setFetchStatus]);
   const handleDelete = (id) => {
+    setSelectedJobId(id);
+    setShowModal(true);
+  };
+  const confirmDelete = () => {
     axios
-      .delete(`https://dev-example.sanbercloud.com/api/job-vacancy/${id}`, {
+      .delete(`https://dev-example.sanbercloud.com/api/job-vacancy/${selectedJobId}`, {
         headers: { Authorization: "Bearer " + Cookies.get("token") },
       })
       .then(() => {
         setFetchStatus((prevStatus) => !prevStatus);
+        setShowModal(false);
       });
   };
   return (
@@ -96,6 +104,41 @@ const ListJobsVacancy = () => {
           ))}
         </tbody>
       </table>
+      {showModal ? (
+        <>
+          <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+            <div className="relative mx-auto my-6 w-auto max-w-3xl">
+              <div className="relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
+                <div className="relative flex flex-col justify-center p-6 ">
+                  <div className="flex justify-center">
+                    <HiOutlineExclamationCircle className="text-7xl text-red-500" />
+                  </div>
+                  <p className="text-center text-lg text-gray-500">
+                    Are you sure you want to delete data?
+                  </p>
+                </div>
+                <div className="flex items-center justify-end gap-2 rounded-b border-t border-solid p-4">
+                  <button
+                    className="mb-1 mr-1 rounded-md bg-red-500 px-8 py-2 text-sm font-medium text-white hover:bg-red-700"
+                    type="button"
+                    onClick={() => confirmDelete()}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="mb-1 mr-1 rounded-md bg-gray-200 px-8 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 hover:text-gray-900"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
+        </>
+      ) : null}
     </div>
   );
 };
