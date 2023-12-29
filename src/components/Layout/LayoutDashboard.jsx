@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import logo from "../../assets/img/logo.svg";
 import {
   HiX,
@@ -17,13 +17,30 @@ import Cookies from "js-cookie";
 const LayoutDashboard = ({ children }) => {
   const navigateTo = useNavigate();
   let [open, setOpen] = useState(false);
+  const sidebarRef = useRef(null);
   let userDetails = JSON.parse(localStorage.getItem("user"));
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null)
   const [showModal, setShowModal] = useState(false);
   const location = useLocation()
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
+
+  const closeSidebar = (event) => {
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      setOpen(false);
+    }
+  };
+  document.addEventListener('mousedown', closeSidebar)
+
+  const closeDropdown = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  document.addEventListener('mousedown', closeDropdown)
   const isActive = (pathname) => {
     return location.pathname === pathname;
   };
@@ -50,7 +67,7 @@ const LayoutDashboard = ({ children }) => {
                 </Link>
               </div>
               <div className="flex items-center">
-                <div className="relative ms-3 flex items-center">
+                <div ref={dropdownRef} className="relative ms-3 flex items-center">
                   <button
                     type="button"
                     className="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300"
@@ -83,8 +100,6 @@ const LayoutDashboard = ({ children }) => {
                             type="button"
                             onClick={() => {
                               setShowModal(true);
-                              // Cookies.remove("token");
-                              // navigateTo("/login");
                             }}
                             className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             role="menuitem"
@@ -109,7 +124,7 @@ const LayoutDashboard = ({ children }) => {
           aria-label="Sidebar"
         >
           <div className="h-full overflow-y-auto bg-white px-3 pb-4">
-            <ul className="space-y-2 font-medium">
+            <ul ref={sidebarRef} className="space-y-2 font-medium">
               <li>
                 <Link
                   to="/dashboard"
