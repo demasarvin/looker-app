@@ -11,7 +11,7 @@ import {
   HiLogout,
   HiOutlineExclamationCircle,
 } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 // eslint-disable-next-line react/prop-types
 const LayoutDashboard = ({ children }) => {
@@ -20,8 +20,12 @@ const LayoutDashboard = ({ children }) => {
   let userDetails = JSON.parse(localStorage.getItem("user"));
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const location = useLocation()
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
+  };
+  const isActive = (pathname) => {
+    return location.pathname === pathname;
   };
   return (
     <>
@@ -109,7 +113,7 @@ const LayoutDashboard = ({ children }) => {
               <li>
                 <Link
                   to="/dashboard"
-                  className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
+                  className={isActive('/dashboard')? 'active text-violet-500 flex items-center p-2':'flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100'}
                 >
                   <HiChartPie className="text-2xl" />
                   <span className="ms-3">Dashboard</span>
@@ -118,7 +122,7 @@ const LayoutDashboard = ({ children }) => {
               <li>
                 <Link
                   to="/dashboard/list-job-vacancy"
-                  className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
+                  className={isActive('/dashboard/list-job-vacancy')? 'active text-violet-500 flex items-center p-2':'flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100'}
                 >
                   <HiClipboardList className="text-2xl" />
                   <span className="ms-3">List Jobs</span>
@@ -127,7 +131,7 @@ const LayoutDashboard = ({ children }) => {
               <li>
                 <Link
                   to="/dashboard/list-job-vacancy/form"
-                  className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
+                  className={isActive('/dashboard/list-job-vacancy/form')? 'active text-violet-500 flex items-center p-2':'flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100'}
                 >
                   <HiDocumentAdd className="text-2xl" />
                   <span className="ms-3 flex-1 whitespace-nowrap">
@@ -138,7 +142,7 @@ const LayoutDashboard = ({ children }) => {
               <li>
                 <Link
                   to="/dashboard/profile"
-                  className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
+                  className={isActive('/dashboard/profile')? 'active text-violet-500 flex items-center p-2':'flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100'}
                 >
                   <HiUser className="text-2xl" />
                   <span className="ms-3 flex-1 whitespace-nowrap">Profile</span>
@@ -147,7 +151,7 @@ const LayoutDashboard = ({ children }) => {
               <li>
                 <Link
                   to="/dashboard/change-password"
-                  className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
+                  className={isActive('/dashboard/change-password')? 'active text-violet-500 flex items-center p-2':'flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100'}
                 >
                   <HiKey className="text-2xl" />
                   <span className="ms-3 flex-1 whitespace-nowrap">
@@ -159,10 +163,10 @@ const LayoutDashboard = ({ children }) => {
                 {Cookies.get("token") && (
                   <button
                     onClick={() => setShowModal(true)}
-                    className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
+                    className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 w-full"
                   >
                     <HiLogout className="text-2xl" />
-                    <span className="ms-3 flex-1 whitespace-nowrap">
+                    <span className="ms-3 whitespace-nowrap">
                       Logout
                     </span>
                   </button>
