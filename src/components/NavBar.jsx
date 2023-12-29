@@ -10,7 +10,7 @@ const Navbar = () => {
   ];
   let [open, setOpen] = useState(false);
   return (
-    <nav className="sticky top-0 flex h-16 w-full items-center justify-between bg-primary px-8 py-4 font-primary">
+    <nav className="sticky top-0 flex h-16 w-full items-center justify-between bg-primary px-8 py-4 font-primary z-50">
       <NavLink to="/" className="flex items-center gap-2 text-white">
         <img src={logo} alt="logo" />
         <p className="font-secondary text-xl font-bold">Looker</p>
